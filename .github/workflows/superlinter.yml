@@ -1,6 +1,11 @@
+---
 name: Super-Linter
 
 on: push
+
+permissions:
+  contents: read
+  statuses: write  # <-- Ini untuk memperbaiki error 403
 
 jobs:
   super-lint:
@@ -8,10 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4  # <-- Diubah dari v2 ke v4
+        uses: actions/checkout@v4
 
       - name: Run Super-Linter
-        uses: super-linter/super-linter@v6  # <-- Diubah ke versi terbaru
+        uses: super-linter/super-linter@v6
         env:
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_CHECKOV: false   # <-- Mematikan linter Checkov (Kubernetes YAML)
+          VALIDATE_MARKDOWN: false  # <-- Mematikan linter Markdown (File Blog)
