@@ -6,13 +6,12 @@ jobs:
   super-lint:
     name: Lint code base
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4  # <-- Diubah dari v2 ke v4
 
       - name: Run Super-Linter
-        uses: github/super-linter@v4
+        uses: super-linter/super-linter@v6  # <-- Diubah ke versi terbaru
         env:
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
